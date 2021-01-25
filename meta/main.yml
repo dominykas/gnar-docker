@@ -1,3 +1,4 @@
----
+galaxy_info:
+  license: MIT
 dependencies:
   - role: gnar-base
