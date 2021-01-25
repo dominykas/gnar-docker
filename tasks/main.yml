@@ -12,13 +12,6 @@
         - "software-properties-common"
         - "python3-setuptools"
         - "python3-pip"
-        - "python3-dev"
-        - "build-essential"
-        - "libssl-dev"
-        - "libffi-dev"
-        - "libxml2-dev"
-        - "libxslt-dev"
-        - "zlib1g-dev"
 
   - name: "update alternative to python3"
     alternatives:
@@ -65,24 +58,6 @@
       path: "/srv/docker"
       state: directory
 
-  - name: "start docker after srv mount"
-    lineinfile:
-      path: "/etc/systemd/system/multi-user.target.wants/docker.service"
-      regexp: '^(After=(?!.*srv.mount).*)$'
-      line: '\1 srv.mount'
-      backrefs: yes
-    notify:
-      - "Reload systemd"
-
-  - name: "start docker only if srv mount exists"
-    lineinfile:
-      path: "/etc/systemd/system/multi-user.target.wants/docker.service"
-      regexp: '^(Requires=(?!.*srv.mount).*)$'
-      line: '\1 srv.mount'
-      backrefs: yes
-    notify:
-      - "Reload systemd"
-
   - name: "Set docker daemon options"
     copy:
       src: "daemon.json"
@@ -94,4 +69,4 @@
 
   become: true
   tags:
-    - "docker-host"
+    - "gnar-docker"
