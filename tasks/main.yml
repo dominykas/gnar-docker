@@ -21,6 +21,7 @@
 
   - name: "ensure latest pip"
     pip:
+      break_system_packages: true
       name: "pip"
       state: latest
 
@@ -48,6 +49,7 @@
 
   - name: "install required pip modules"
     pip:
+      break_system_packages: true
       name:
         - "docker-compose"
       state: latest
