@@ -19,12 +19,6 @@
       link: /usr/bin/python
       path: /usr/bin/python3
 
-  - name: "ensure latest pip"
-    pip:
-      break_system_packages: true
-      name: "pip"
-      state: latest
-
   - name: "copy docker GPG key"
     copy:
       src: "docker.gpg.key"
@@ -46,13 +40,10 @@
     apt:
       pkg:
         - "docker-ce"
-
-  - name: "install required pip modules"
-    pip:
-      break_system_packages: true
-      name:
-        - "docker-compose"
-      state: latest
+        - "docker-ce-cli"
+        - "containerd.io"
+        - "docker-buildx-plugin"
+        - "docker-compose-plugin"
 
   - name: "ensure /srv/docker"
     file:
